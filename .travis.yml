@@ -8,6 +8,9 @@ before_install:
 script:
   - docker run -e CI=true bouatimelmahfoud/react-docker npm run test 
 
+after_script:
+  - docker build -t prod .
+  - docker run prod
 deploy:
   provider: heroku
   api_key: "46fd2784-9958-4bd1-ac83-8c67570d381f"
