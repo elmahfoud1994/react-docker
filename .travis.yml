@@ -4,12 +4,15 @@ services:
 
 before_install:
   - docker build -t bouatimelmahfoud/react-docker -f Dockerfile.dev .
+  - echo "$HEROKU_PASSWORD" | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com
  
 script:
   - docker run -e CI=true bouatimelmahfoud/react-docker npm run test 
 deploy:
-  provider: heroku
-  api_key: "46fd2784-9958-4bd1-ac83-8c67570d381f"
-  app: bouatim-react-docker
+  provider: script
+  script:
+    docker build -t bouatimelmahfoud/react-prod  
+    docker tag bouatimelmahfoud/react-prod registry.heroku.com/bouatim-react-docker/web
+    docker push registry.heroku.com/bouatim-react-docker/web
   on:
     branch: master
