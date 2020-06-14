@@ -11,7 +11,7 @@ script:
 deploy:
   provider: script
   script:
-    docker build -t bouatimelmahfoud/react-prod .
+    docker build -t bouatimelmahfoud/react-docker -f Dockerfile.dev .
     docker tag bouatimelmahfoud/react-prod registry.heroku.com/bouatim-react-docker/web
     docker push registry.heroku.com/bouatim-react-docker/web
   on:
