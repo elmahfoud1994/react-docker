@@ -14,7 +14,7 @@ deploy:
     docker build -t bouatimelmahfoud/react-prod . ;
     echo 46fd2784-9958-4bd1-ac83-8c67570d381f | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com;
     docker tag bouatimelmahfoud/react-prod registry.heroku.com/bouatim-react-prod/web;
-    docker push registry.heroku.com/bouatim-react-docker/web;
-    heroku container:release web --app bouatim-react-docker
+    docker push registry.heroku.com/bouatim-react-prod/web;
+    heroku container:release web --app bouatim-react-prod
   on:
     branch: master
