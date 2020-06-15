@@ -1,6 +1,7 @@
 sudo: required
 services:
   - docker
+  - travis
 
 before_install:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
@@ -12,7 +13,7 @@ deploy:
   provider: script
   script:
     docker build -t bouatimelmahfoud/react-prod . ;
-    echo 46fd2784-9958-4bd1-ac83-8c67570d381f | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com;
+    echo   travis encrypt 46fd2784-9958-4bd1-ac83-8c67570d381f --add deploy.api_key --org | docker login -u "$HEROKU_USERNAME" --password-stdin registry.heroku.com;
     docker tag bouatimelmahfoud/react-prod registry.heroku.com/bouatim-react-prod/web;
     docker push registry.heroku.com/bouatim-react-prod/web;
     heroku container:release web --app bouatim-react-prod
